@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Spartak_ProjectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClientsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MaterialsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameMaterial" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+          <Property Name="Supplier" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdNameMaterial" Type="int" Nullable="false" />
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="IdStaff" Type="int" Nullable="false" />
+          <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StaffSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StorageSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idNameMaterial" Type="int" Nullable="false" />
+          <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OrdersSet_ClientsSet">
+          <End Role="ClientsSet" Type="Self.ClientsSet" Multiplicity="1" />
+          <End Role="OrdersSet" Type="Self.OrdersSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersSet">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersSet_MaterialsSet">
+          <End Role="MaterialsSet" Type="Self.MaterialsSet" Multiplicity="1" />
+          <End Role="OrdersSet" Type="Self.OrdersSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersSet">
+              <PropertyRef Name="IdNameMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersSet_StaffSet">
+          <End Role="StaffSet" Type="Self.StaffSet" Multiplicity="1" />
+          <End Role="OrdersSet" Type="Self.OrdersSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersSet">
+              <PropertyRef Name="IdStaff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StorageSet_MaterialsSet">
+          <End Role="MaterialsSet" Type="Self.MaterialsSet" Multiplicity="1" />
+          <End Role="StorageSet" Type="Self.StorageSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StorageSet">
+              <PropertyRef Name="idNameMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Spartak_ProjectModelContainer">
+          <EntitySet Name="ClientsSet" EntityType="Self.ClientsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialsSet" EntityType="Self.MaterialsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdersSet" EntityType="Self.OrdersSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaffSet" EntityType="Self.StaffSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StorageSet" EntityType="Self.StorageSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OrdersSet_ClientsSet" Association="Self.FK_OrdersSet_ClientsSet">
+            <End Role="ClientsSet" EntitySet="ClientsSet" />
+            <End Role="OrdersSet" EntitySet="OrdersSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersSet_MaterialsSet" Association="Self.FK_OrdersSet_MaterialsSet">
+            <End Role="MaterialsSet" EntitySet="MaterialsSet" />
+            <End Role="OrdersSet" EntitySet="OrdersSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersSet_StaffSet" Association="Self.FK_OrdersSet_StaffSet">
+            <End Role="StaffSet" EntitySet="StaffSet" />
+            <End Role="OrdersSet" EntitySet="OrdersSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StorageSet_MaterialsSet" Association="Self.FK_StorageSet_MaterialsSet">
+            <End Role="MaterialsSet" EntitySet="MaterialsSet" />
+            <End Role="StorageSet" EntitySet="StorageSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Spartak_ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClientsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdersSet" Relationship="Self.FK_OrdersSet_ClientsSet" FromRole="ClientsSet" ToRole="OrdersSet" />
+        </EntityType>
+        <EntityType Name="MaterialsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameMaterial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
+          <Property Name="Supplier" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrdersSet" Relationship="Self.FK_OrdersSet_MaterialsSet" FromRole="MaterialsSet" ToRole="OrdersSet" />
+          <NavigationProperty Name="StorageSet" Relationship="Self.FK_StorageSet_MaterialsSet" FromRole="MaterialsSet" ToRole="StorageSet" />
+        </EntityType>
+        <EntityType Name="OrdersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdNameMaterial" Type="Int32" Nullable="false" />
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="IdStaff" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ClientsSet" Relationship="Self.FK_OrdersSet_ClientsSet" FromRole="OrdersSet" ToRole="ClientsSet" />
+          <NavigationProperty Name="MaterialsSet" Relationship="Self.FK_OrdersSet_MaterialsSet" FromRole="OrdersSet" ToRole="MaterialsSet" />
+          <NavigationProperty Name="StaffSet" Relationship="Self.FK_OrdersSet_StaffSet" FromRole="OrdersSet" ToRole="StaffSet" />
+        </EntityType>
+        <EntityType Name="StaffSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrdersSet" Relationship="Self.FK_OrdersSet_StaffSet" FromRole="StaffSet" ToRole="OrdersSet" />
+        </EntityType>
+        <EntityType Name="StorageSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNameMaterial" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MaterialsSet" Relationship="Self.FK_StorageSet_MaterialsSet" FromRole="StorageSet" ToRole="MaterialsSet" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OrdersSet_ClientsSet">
+          <End Role="ClientsSet" Type="Self.ClientsSet" Multiplicity="1" />
+          <End Role="OrdersSet" Type="Self.OrdersSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersSet">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersSet_MaterialsSet">
+          <End Role="MaterialsSet" Type="Self.MaterialsSet" Multiplicity="1" />
+          <End Role="OrdersSet" Type="Self.OrdersSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersSet">
+              <PropertyRef Name="IdNameMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StorageSet_MaterialsSet">
+          <End Role="MaterialsSet" Type="Self.MaterialsSet" Multiplicity="1" />
+          <End Role="StorageSet" Type="Self.StorageSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StorageSet">
+              <PropertyRef Name="idNameMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersSet_StaffSet">
+          <End Role="StaffSet" Type="Self.StaffSet" Multiplicity="1" />
+          <End Role="OrdersSet" Type="Self.OrdersSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrdersSet">
+              <PropertyRef Name="IdStaff" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Spartak_ProjectEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClientsSet" EntityType="Self.ClientsSet" />
+          <EntitySet Name="MaterialsSet" EntityType="Self.MaterialsSet" />
+          <EntitySet Name="OrdersSet" EntityType="Self.OrdersSet" />
+          <EntitySet Name="StaffSet" EntityType="Self.StaffSet" />
+          <EntitySet Name="StorageSet" EntityType="Self.StorageSet" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_OrdersSet_ClientsSet" Association="Self.FK_OrdersSet_ClientsSet">
+            <End Role="ClientsSet" EntitySet="ClientsSet" />
+            <End Role="OrdersSet" EntitySet="OrdersSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersSet_MaterialsSet" Association="Self.FK_OrdersSet_MaterialsSet">
+            <End Role="MaterialsSet" EntitySet="MaterialsSet" />
+            <End Role="OrdersSet" EntitySet="OrdersSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StorageSet_MaterialsSet" Association="Self.FK_StorageSet_MaterialsSet">
+            <End Role="MaterialsSet" EntitySet="MaterialsSet" />
+            <End Role="StorageSet" EntitySet="StorageSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersSet_StaffSet" Association="Self.FK_OrdersSet_StaffSet">
+            <End Role="StaffSet" EntitySet="StaffSet" />
+            <End Role="OrdersSet" EntitySet="OrdersSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Spartak_ProjectModelContainer" CdmEntityContainer="Spartak_ProjectEntities1">
+          <EntitySetMapping Name="ClientsSet">
+            <EntityTypeMapping TypeName="Spartak_ProjectModel.ClientsSet">
+              <MappingFragment StoreEntitySet="ClientsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialsSet">
+            <EntityTypeMapping TypeName="Spartak_ProjectModel.MaterialsSet">
+              <MappingFragment StoreEntitySet="MaterialsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameMaterial" ColumnName="NameMaterial" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersSet">
+            <EntityTypeMapping TypeName="Spartak_ProjectModel.OrdersSet">
+              <MappingFragment StoreEntitySet="OrdersSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdNameMaterial" ColumnName="IdNameMaterial" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdStaff" ColumnName="IdStaff" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffSet">
+            <EntityTypeMapping TypeName="Spartak_ProjectModel.StaffSet">
+              <MappingFragment StoreEntitySet="StaffSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StorageSet">
+            <EntityTypeMapping TypeName="Spartak_ProjectModel.StorageSet">
+              <MappingFragment StoreEntitySet="StorageSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="idNameMaterial" ColumnName="idNameMaterial" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Spartak_ProjectModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

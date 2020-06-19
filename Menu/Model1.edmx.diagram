@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e242a7801ca64b9d868030244422bf91" Name="Diagram1">
+        <EntityTypeShape EntityType="Spartak_ProjectModel.ClientsSet" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Spartak_ProjectModel.MaterialsSet" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Spartak_ProjectModel.OrdersSet" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Spartak_ProjectModel.StaffSet" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Spartak_ProjectModel.StorageSet" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Spartak_ProjectModel.Users" Width="1.5" PointX="5.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="Spartak_ProjectModel.FK_OrdersSet_ClientsSet" ManuallyRouted="false" />
+        <AssociationConnector Association="Spartak_ProjectModel.FK_OrdersSet_MaterialsSet" ManuallyRouted="false" />
+        <AssociationConnector Association="Spartak_ProjectModel.FK_StorageSet_MaterialsSet" ManuallyRouted="false" />
+        <AssociationConnector Association="Spartak_ProjectModel.FK_OrdersSet_StaffSet" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
